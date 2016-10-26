@@ -35,7 +35,8 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String handleUserLogin(@ModelAttribute("form") @Valid FormDTO form, ModelMap model, @RequestParam String name,
+    public String handleUserLogin(@ModelAttribute("form") 
+	@Valid FormDTO form, ModelMap model, @RequestParam String name,
             @RequestParam String password) {
 
     	logger.debug("handleUserLogin");
@@ -48,28 +49,29 @@ public class LoginController {
         model.put("name", name);
         return "welcome";
     }
-    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
-    public String handleUserWelcomePage(ModelMap model, @RequestParam String name,
-            @RequestParam String email, @RequestParam String age) {
+//     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
+//     public String handleUserWelcomePage(ModelMap model, @RequestParam String name,
+//             @RequestParam String email, @RequestParam String age) {
 
-    	logger.debug("handleUserWelcomePage");
+//     	logger.debug("handleUserWelcomePage");
     	
-    	logger.debug(name + " " + email);
-    	logger.debug(model.get(name) + " " + model.get(email));
-        model.put("name", name);
-        return "welcome";
-    }
+//     	logger.debug(name + " " + email);
+//     	logger.debug(model.get(name) + " " + model.get(email));
+//         model.put("name", name);
+//         return "welcome";
+//     }
     @RequestMapping(value = "/welcome", method = RequestMethod.POST)
-    public String handleUserWelcomePageForm(@ModelAttribute("form") @Valid FormDTO form, BindingResult result,
+    public String handleUserForm(@ModelAttribute("form") 
+    		@Valid FormDTO form, BindingResult result,
     		ModelMap model, @RequestParam String name,
             @RequestParam String email, @RequestParam String age) {
 
     	logger.debug("handleUserWelcomePageForm");
-    	if (result.hasErrors()) {
-            System.out.println("has Errors");
-        } else {
-            return "form is ok";
-        }
+//     	if (result.hasErrors()) {
+//             System.out.println("has Errors");
+//         } else {
+//             return "form is ok";
+//         }
     	logger.debug(name + " " + email);
     	logger.debug(model.get(name) + " " + model.get(email));
         model.put("name", name);
