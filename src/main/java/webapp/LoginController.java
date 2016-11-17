@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,6 +28,7 @@ public class LoginController {
     	logger.debug("show login");
         return "login";
     }
+    
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String showLogoutPage(ModelMap model) {
     	logger.debug("show logout");
@@ -61,20 +63,38 @@ public class LoginController {
 //         return "welcome";
 //     }
     @RequestMapping(value = "/welcome", method = RequestMethod.POST)
-    public String handleUserForm(@ModelAttribute("form") 
+    public String handleUserWelcomePage(@ModelAttribute("form") 
     		@Valid FormDTO form, BindingResult result,
-    		ModelMap model, @RequestParam String name,
-            @RequestParam String email, @RequestParam String age) {
+    		ModelMap model, @RequestParam String name) {
 
     	logger.debug("handleUserWelcomePageForm");
-//     	if (result.hasErrors()) {
-//             System.out.println("has Errors");
-//         } else {
-//             return "form is ok";
-//         }
-    	logger.debug(name + " " + email);
-    	logger.debug(model.get(name) + " " + model.get(email));
         model.put("name", name);
         return "welcome";
+    }
+    
+    @RequestMapping(value = "/form", method = RequestMethod.GET)
+    public String handleUserForm(Model model) {
+    	logger.debug("handleUserFormPage");
+    	model.addAttribute("form", new FormDTO()); 
+        return "form";
+    }
+    
+    @RequestMapping(value = "/confirm", method = RequestMethod.POST)
+    public String handleUserFormValidation(@ModelAttribute("form") 
+    		@Valid FormDTO form, BindingResult result,
+    		ModelMap model, @RequestParam String name,
+            @RequestParam String email, @RequestParam int age) {
+
+    	logger.debug("handleUserFormValidation");
+        model.put("name", name);
+        
+        if (result.hasErrors()) {
+            //formularz nie jest uzupełniony prawidłowo
+            return "form";
+        } else {
+            //formularz wypełniony prawidłowo
+        	return "welcome";
+        }
+        
     }
 }

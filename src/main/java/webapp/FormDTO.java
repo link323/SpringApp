@@ -1,6 +1,7 @@
 package webapp;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -12,9 +13,9 @@ public class FormDTO {
 	@NotEmpty
 	private String email;
 	
-	@NotEmpty
 	@Min(18)
-	private String age;
+	@NotNull
+	private Integer age;
 	
 	public String getName() {
 		return name;
@@ -28,10 +29,10 @@ public class FormDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getAge() {
+	public Integer getAge() {
 		return age;
 	}
-	public void setAge(String age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 }
